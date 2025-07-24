@@ -1,10 +1,10 @@
----> Project Refactoring Summary
+# Project Refactoring Summary
 This document describes the major changes made when refactoring the messy-migration project to a cleaner, more maintainable structure using Blueprints, modular folders, security utils, and an application factory.
 
 
-##Project Structure
+# Project Structure
 Before:
-#Major Issues Identified
+# Major Issues Identified
 
 Routes, DB logic, and security logic were combined in single files.
 Hard to read and maintain.
@@ -31,7 +31,7 @@ Routes assumed JSON without validation.
 Could return 415/400 if requests were invalid.
 
 After:
-#Changes Made & Why
+# Changes Made & Why
 
 Introduced create_app() App Factory
 
@@ -85,7 +85,7 @@ Added Content-Type Example
 
 Suggested setting Content-Type: application/json for POST/PUT.
 
-#Benefits
+# Benefits
 Easier to maintain and scale.
 Clean separation of concerns (routes vs models vs utilities).
 Secure password handling.
@@ -93,7 +93,7 @@ Consistent error messages.
 Simpler to test and deploy.
 
 
-#Assumptions & Trade-offs 
+# Assumptions & Trade-offs 
 
 No ORM (like SQLAlchemy)
 We used plain SQLite commands instead of a bigger tool like SQLAlchemy.
@@ -116,7 +116,7 @@ Works for a small project.
 Bigger projects should use a proper tool (like Alembic) to handle database changes over time.
 
 
-#What I’d Do With More Time (Simple & Relevant)
+# What I’d Do With More Time (Simple & Relevant)
 Add Login Sessions or Tokens
 Right now, login just checks email and password. I’d add proper sessions or JWT tokens so users stay logged in safely.
 
@@ -139,7 +139,7 @@ Add API Docs
 I’d add Swagger docs so anyone using the API knows exactly what routes to call and what data to send.
 
 
-#How to Run
+# How to Run
 bash
 Copy
 Edit
@@ -149,19 +149,19 @@ python init_db.py
 # Start the server:
 python app.py
 
-If Use Postman with:
+# If Use Postman with:
 
 POST and PUT: set Body → raw → JSON
 
 GET /search?name=Admin → query param only
 in Body->raw->JSON
-""[
+[
   {
     "id": 1,
     "name": "Admin User",
     "email": "admin@example.com"
   }
-]""
+]
 
 
 DELETE /users/<id>
@@ -169,11 +169,11 @@ DELETE /users/<id>
 
 POST /Users
 Include Body->raw->JSON 
-""{
+{
   "name": "Alice",
   "email": "alice@example.com",
   "password": "secret123"
-}""
+}
 
 PUT /Users/<id>
 {
